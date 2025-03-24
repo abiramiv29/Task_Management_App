@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <style>
+      body {
+    font-family: Arial, sans-serif;
+    background-color: #e5f1fd;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    width: 90%;
+    max-width: 750px;
+    min-height: 600px;
+    border-radius: 20px;
+    background: #fefefe;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 10px auto;
+    border: 5px solid rgb(165, 165, 250);
+}
+
+.contain {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#img1 {
+    max-width: 100%;
+    height: auto;
+    margin: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.task-input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-input input,
+.task-input textarea {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#b1,
+button {
+    cursor: pointer;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+#b1 {
+    padding: 10px 15px;
+    height: 40px;
+    background-color: #89c8f9;
+    color: black;
+    width: 150px;
+    margin: 20px auto;
+    display: block;
+}
+
+#b1:hover {
+    background-color: #9ed4fd;
+}
+
+#b2 {
+    padding: 10px 15px;
+    height: 40px;
+    background-color: #1793f1;
+    color: white;
+    width: 150px;
+}
+
+#b2:hover {
+    background-color: #83beef;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+ul li {
+    background: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+ul li p {
+    margin: 5px 0 0 0;
+    font-size: 0.9em;
+    color: #555;
+}
+
+ul li.completed {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.buttons-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.toggle {
+    background-color: #007bff;
+    color: white;
+}
+
+.toggle:hover {
+    background-color: #0056b3;
+}
+
+.edit {
+    background-color: #ffc107;
+    color: black;
+}
+
+.edit:hover {
+    background-color: #e0a800;
+}
+
+.delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete:hover {
+    background-color: #c82333;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    .contain {
+        flex-direction: column;
+    }
+    #img1 {
+        margin: 20px auto;
+    }
+    #b1, #b2 {
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 95%;
+        padding: 10px;
+    }
+    ul li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .buttons-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+<div class="contain">
+    <img src="https://terotam.com/wp-content/uploads/2021/10/Prioritize-your-Tasks.png" id="img1">
+
+    <div class="container">
+
+        <h1>Task Manager</h1>    
+
+        <div class="task-input">
+            <input type="text" id="taskName" placeholder="Enter task name">
+            <textarea id="taskDescription" placeholder="Enter task description" rows="3"></textarea>
+            <button id="b1" onclick="addTask()">Add Task</button>
+
+            <div class="buttons-row">
+                <button id="b2" onclick="displayAllTasks()">All</button>
+                <button id="b2" onclick="displayCompletedTasks()">Completed</button>
+                <button id="b2" onclick="displayPendingTasks()">Pending</button>
+            </div>
+        </div>
+
+        <ul id="taskList"></ul>
+    </div>
+</div>
+<script >
+    document.addEventListener("DOMContentLoaded", function () {
+    loadTasks();
+});
+
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+function addTask() {
+    let taskName = document.getElementById("taskName").value.trim();
+    let taskDescription = document.getElementById("taskDescription").value.trim(); // Get description input
+
+    if (!taskName) {
+        alert("Task name cannot be empty!");
+        return;
+    }
+    if (!taskDescription) {
+        alert("Task description cannot be empty!");
+        return;
+    }
+
+    let task = {
+        id: Date.now(),
+        name: taskName,
+        description: taskDescription,
+        status: "pending"
+    };
+    tasks.push(task);
+    saveTasks();
+
+    document.getElementById("taskName").value = "";
+    document.getElementById("taskDescription").value = "";
+}
+
+function renderTasks() {
+    let taskList = document.getElementById("taskList");
+    taskList.innerHTML = "";
+    tasks.forEach(task => {
+        let li = document.createElement("li");
+        if (task.status === "completed") {
+            li.classList.add("completed");
+        }
+        li.innerHTML = `
+            <span><strong>${task.name}</strong></span>
+            <p>${task.description}</p> <!-- Display task description -->
+            <div>
+                <button class="toggle" onclick="toggleStatus(${task.id})">
+                    ${task.status === "completed" ? "Undo" : "Complete"}
+                </button>
+                <button class="edit" onclick="editTask(${task.id})">Edit</button>
+                <button class="delete" onclick="deleteTask(${task.id})">Delete</button>
+            </div>
+        `;
+        taskList.appendChild(li);
+    });
+}
+
+function editTask(id) {
+    let task = tasks.find(t => t.id === id);
+    if (!task) return;
+    let newName = prompt("Edit Task Name:", task.name);
+    let newDescription = prompt("Edit Task Description:", task.description); 
+    if (newName !== null && newName.trim() !== "") task.name = newName.trim();
+    if (newDescription !== null && newDescription.trim() !== "") task.description = newDescription.trim();
+    saveTasks();
+    renderTasks();
+}
+
+function deleteTask(id) {
+    tasks = tasks.filter(task => task.id !== id);
+    saveTasks();
+    renderTasks();
+}
+
+function displayAllTasks() {
+    renderTasks(); 
+}
+
+function displayCompletedTasks() {
+    let taskList = document.getElementById("taskList");
+    taskList.innerHTML = "";
+    tasks.filter(task => task.status === "completed").forEach(task => {
+        let li = document.createElement("li");
+        li.classList.add("completed");
+        li.innerHTML = `
+            <span><strong>${task.name}</strong></span>
+            <p>${task.description}</p> <!-- Display task description -->
+            <div>
+                <button class="toggle" onclick="toggleStatus(${task.id})">Undo</button>
+                <button class="delete" onclick="deleteTask(${task.id})">Delete</button>
+            </div>
+        `;
+        taskList.appendChild(li);
+    });
+}
+
+function displayPendingTasks() {
+    let taskList = document.getElementById("taskList");
+    taskList.innerHTML = "";
+    tasks.filter(task => task.status === "pending").forEach(task => {
+        let li = document.createElement("li");
+        li.innerHTML = `
+            <span><strong>${task.name}</strong></span>
+            <p>${task.description}</p> <!-- Display task description -->
+            <div>
+                <button class="toggle" onclick="toggleStatus(${task.id})">Complete</button>
+                <button class="edit" onclick="editTask(${task.id})">Edit</button>
+                <button class="delete" onclick="deleteTask(${task.id})">Delete</button>
+            </div>
+        `;
+        taskList.appendChild(li);
+    });
+}
+
+function toggleStatus(id) {
+    let task = tasks.find(t => t.id === id);
+    if (!task) return;
+    task.status = task.status === "pending" ? "completed" : "pending";
+    saveTasks();
+    renderTasks();
+}
+
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function loadTasks() {
+    renderTasks();
+}
+
+</script>
+</body>
+</html>
