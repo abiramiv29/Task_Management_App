@@ -20,13 +20,17 @@ This Task Management Application is built using HTML, CSS, and JavaScript. It al
 -   **CSS:** For styling the web page.
 -   **JavaScript:** For handling the application logic and interactiveness.
 
-## Getting Started
-
-1.  **Clone the repository:**
-    ```bash
-    git clone [repository_url]
-    ```
-2.  **Open `index.html`:** Open the `index.html` file in your web browser.
+## Steps to Run
+**Download the Project:**
+-   Download the index.html file to your local machine
+   
+**Open the Application:**
+-   Open the index.html file in your web browser by double-clicking it or dragging it into the browser window.
+  
+**Use the Application:**
+-   Add tasks using the form and enter task name and description.
+-   Toggle task status, edit,view or delete tasks as needed.
+-   Use different filter buttons to view specific tasks such as completed, pending or all tasks.
 
 ## Usage
 
