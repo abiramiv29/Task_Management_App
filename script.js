@@ -6,7 +6,7 @@ let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
 function addTask() {
     let taskName = document.getElementById("taskName").value.trim();
-    let taskDescription = document.getElementById("taskDescription").value.trim(); // Get description input
+    let taskDescription = document.getElementById("taskDescription").value.trim(); 
 
     if (!taskName) {
         alert("Task name cannot be empty!");
@@ -40,7 +40,7 @@ function renderTasks() {
         }
         li.innerHTML = `
             <span><strong>${task.name}</strong></span>
-            <p>${task.description}</p> <!-- Display task description -->
+            <p>${task.description}</p> 
             <div>
                 <button class="toggle" onclick="toggleStatus(${task.id})">
                     ${task.status === "completed" ? "Undo" : "Complete"}
@@ -82,7 +82,7 @@ function displayCompletedTasks() {
         li.classList.add("completed");
         li.innerHTML = `
             <span><strong>${task.name}</strong></span>
-            <p>${task.description}</p> <!-- Display task description -->
+            <p>${task.description}</p> 
             <div>
                 <button class="toggle" onclick="toggleStatus(${task.id})">Undo</button>
                 <button class="delete" onclick="deleteTask(${task.id})">Delete</button>
@@ -99,7 +99,7 @@ function displayPendingTasks() {
         let li = document.createElement("li");
         li.innerHTML = `
             <span><strong>${task.name}</strong></span>
-            <p>${task.description}</p> <!-- Display task description -->
+            <p>${task.description}</p> 
             <div>
                 <button class="toggle" onclick="toggleStatus(${task.id})">Complete</button>
                 <button class="edit" onclick="editTask(${task.id})">Edit</button>
