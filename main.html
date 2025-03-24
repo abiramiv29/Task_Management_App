@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="contain">
+    <img src="https://terotam.com/wp-content/uploads/2021/10/Prioritize-your-Tasks.png" id="img1">
+
+    <div class="container">
+
+        <h1>Task Manager</h1>    
+
+        <div class="task-input">
+            <input type="text" id="taskName" placeholder="Enter task name">
+            <textarea id="taskDescription" placeholder="Enter task description" rows="3"></textarea>
+            <button id="b1" onclick="addTask()">Add Task</button>
+
+            <div class="buttons-row">
+                <button id="b2" onclick="displayAllTasks()">All</button>
+                <button id="b2" onclick="displayCompletedTasks()">Completed</button>
+                <button id="b2" onclick="displayPendingTasks()">Pending</button>
+            </div>
+        </div>
+
+        <ul id="taskList"></ul>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

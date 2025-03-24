@@ -1,0 +1,178 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e5f1fd;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    width: 90%;
+    max-width: 750px;
+    min-height: 600px;
+    border-radius: 20px;
+    background: #fefefe;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 10px auto;
+    border: 5px solid rgb(165, 165, 250);
+}
+
+.contain {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#img1 {
+    max-width: 100%;
+    height: auto;
+    margin: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.task-input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-input input,
+.task-input textarea {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#b1,
+button {
+    cursor: pointer;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+#b1 {
+    padding: 10px 15px;
+    height: 40px;
+    background-color: #89c8f9;
+    color: black;
+    width: 150px;
+    margin: 20px auto;
+    display: block;
+}
+
+#b1:hover {
+    background-color: #9ed4fd;
+}
+
+#b2 {
+    padding: 10px 15px;
+    height: 40px;
+    background-color: #1793f1;
+    color: white;
+    width: 150px;
+}
+
+#b2:hover {
+    background-color: #83beef;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+ul li {
+    background: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+ul li p {
+    margin: 5px 0 0 0;
+    font-size: 0.9em;
+    color: #555;
+}
+
+ul li.completed {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.buttons-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.toggle {
+    background-color: #007bff;
+    color: white;
+}
+
+.toggle:hover {
+    background-color: #0056b3;
+}
+
+.edit {
+    background-color: #ffc107;
+    color: black;
+}
+
+.edit:hover {
+    background-color: #e0a800;
+}
+
+.delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete:hover {
+    background-color: #c82333;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    .contain {
+        flex-direction: column;
+    }
+    #img1 {
+        margin: 20px auto;
+    }
+    #b1, #b2 {
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 95%;
+        padding: 10px;
+    }
+    ul li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .buttons-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
